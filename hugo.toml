@@ -1,0 +1,59 @@
+baseURL = "https://asyncwhale.github.io/"
+languageCode = "zh-cn"
+title = "asyncwhale"
+theme = "PaperMod"
+# 本地构建产物输出到 docs/，配合 GitHub Pages「deploy from branch: main /docs」，绕开 Actions（省 workflow scope）
+publishDir = "docs"
+enableRobotsTXT = true
+enableEmoji = true
+hasCJKLanguage = true
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  env = "production"
+  description = "AI 安全 / 大规模分布式系统工程师的工程笔记"
+  author = "Yu"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  TocOpen = false
+  ShowWordCount = true
+  DateFormat = "2006-01-02"
+
+  [params.homeInfoParams]
+    Title = "Yu · asyncwhale"
+    Content = "主业给大规模分布式系统打地基，顺便给 AI 时代做稳定性工程。最近重心被 LLM Agent 带偏——研究它们从 Demo 里放出来、扔进真实系统后会怎么社死。这儿记我踩过的坑、想明白的事，尽量一五一十，不灌水。"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/asyncwhale"
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "文章"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 20
+  [[menu.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives/"
+    weight = 30
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    guessSyntax = true
+    style = "github-dark"

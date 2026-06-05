@@ -1,0 +1,16 @@
+# Hugo
+.hugo_build.lock
+/resources/_gen/
+/public/
+
+# 私有内容绝不进这个公开仓
+素材库/
+*.env
+.env*
+*.key
+*.pem
+
+# OS
+.DS_Store
+
+# 注意：docs/(构建产物，Pages 要靠它部署)、themes/、content/、hugo.toml 都要入库，别忽略
