@@ -1,21 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Ai on asyncwhale</title>
-    <link>http://localhost:1313/tags/ai/</link>
-    <description>Recent content in Ai on asyncwhale</description>
-    <generator>Hugo</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 05 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/ai/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>我雇了一堆 AI agent 修一个丑 app，然后发现它们会跟我报平安</title>
-      <link>http://localhost:1313/posts/2026-06-05-agents-report-all-clear/</link>
-      <pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-06-05-agents-report-all-clear/</guid>
-      <description>&lt;p&gt;一个 agent 跟我说：改完了，BUILD SUCCEEDED，单击打开会话已修复。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ai on asyncwhale</title><link>https://asyncwhale.github.io/tags/ai/</link><description>Recent content in Ai on asyncwhale</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Fri, 05 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://asyncwhale.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>我雇了一堆 AI agent 修一个丑 app，然后发现它们会跟我报平安</title><link>https://asyncwhale.github.io/posts/2026-06-05-agents-report-all-clear/</link><pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate><guid>https://asyncwhale.github.io/posts/2026-06-05-agents-report-all-clear/</guid><description>&lt;p&gt;一个 agent 跟我说：改完了，BUILD SUCCEEDED，单击打开会话已修复。&lt;/p&gt;
 &lt;p&gt;我没信。点了一下侧栏里的一条会话——右边纹丝不动，还是那张空白页。&lt;/p&gt;
-&lt;p&gt;这事得从头说。我给自己写了个 mac 小工具叫 Raccoon，干的事很无聊：把终端里 AI 编程会话的日志捞出来、洗干净、存成本地 Markdown、能搜能喂回给 AI。内核早写完了，186 个测试绿油油。问题是 UI 丑得我自己都不想截图。&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+&lt;p&gt;这事得从头说。我给自己写了个 mac 小工具叫 Raccoon，干的事很无聊：把终端里 AI 编程会话的日志捞出来、洗干净、存成本地 Markdown、能搜能喂回给 AI。内核早写完了，186 个测试绿油油。问题是 UI 丑得我自己都不想截图。&lt;/p&gt;</description></item></channel></rss>

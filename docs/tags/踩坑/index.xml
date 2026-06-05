@@ -1,29 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>踩坑 on asyncwhale</title>
-    <link>http://localhost:1313/tags/%E8%B8%A9%E5%9D%91/</link>
-    <description>Recent content in 踩坑 on asyncwhale</description>
-    <generator>Hugo</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 05 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/%E8%B8%A9%E5%9D%91/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>sleep 0 防不住强制睡眠：我的 Mac mini 被半夜更新睡死了</title>
-      <link>http://localhost:1313/posts/2026-06-05-macos-update-slept-my-scheduler/</link>
-      <pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-06-05-macos-update-slept-my-scheduler/</guid>
-      <description>&lt;p&gt;我那几个定时任务，有一阵子日志一片空白。不是报错，是压根没跑。&lt;/p&gt;
-&lt;p&gt;它们靠 launchd 每分钟拉一趟，每趟开头会写一行检查记录。可日志在某个后半夜停了，之后接连好几次该生成的文件干脆都不在。不是空文件，是没生成。机器没关、没重启，手动跑都正常。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>我雇了一堆 AI agent 修一个丑 app，然后发现它们会跟我报平安</title>
-      <link>http://localhost:1313/posts/2026-06-05-agents-report-all-clear/</link>
-      <pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-06-05-agents-report-all-clear/</guid>
-      <description>&lt;p&gt;一个 agent 跟我说：改完了，BUILD SUCCEEDED，单击打开会话已修复。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>踩坑 on asyncwhale</title><link>https://asyncwhale.github.io/tags/%E8%B8%A9%E5%9D%91/</link><description>Recent content in 踩坑 on asyncwhale</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Fri, 05 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://asyncwhale.github.io/tags/%E8%B8%A9%E5%9D%91/index.xml" rel="self" type="application/rss+xml"/><item><title>sleep 0 防不住强制睡眠：我的 Mac mini 被半夜更新睡死了</title><link>https://asyncwhale.github.io/posts/2026-06-05-macos-update-slept-my-scheduler/</link><pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate><guid>https://asyncwhale.github.io/posts/2026-06-05-macos-update-slept-my-scheduler/</guid><description>&lt;p&gt;我那几个定时任务，有一阵子日志一片空白。不是报错，是压根没跑。&lt;/p&gt;
+&lt;p&gt;它们靠 launchd 每分钟拉一趟，每趟开头会写一行检查记录。可日志在某个后半夜停了，之后接连好几次该生成的文件干脆都不在。不是空文件，是没生成。机器没关、没重启，手动跑都正常。&lt;/p&gt;</description></item><item><title>我雇了一堆 AI agent 修一个丑 app，然后发现它们会跟我报平安</title><link>https://asyncwhale.github.io/posts/2026-06-05-agents-report-all-clear/</link><pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate><guid>https://asyncwhale.github.io/posts/2026-06-05-agents-report-all-clear/</guid><description>&lt;p&gt;一个 agent 跟我说：改完了，BUILD SUCCEEDED，单击打开会话已修复。&lt;/p&gt;
 &lt;p&gt;我没信。点了一下侧栏里的一条会话——右边纹丝不动，还是那张空白页。&lt;/p&gt;
-&lt;p&gt;这事得从头说。我给自己写了个 mac 小工具叫 Raccoon，干的事很无聊：把终端里 AI 编程会话的日志捞出来、洗干净、存成本地 Markdown、能搜能喂回给 AI。内核早写完了，186 个测试绿油油。问题是 UI 丑得我自己都不想截图。&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+&lt;p&gt;这事得从头说。我给自己写了个 mac 小工具叫 Raccoon，干的事很无聊：把终端里 AI 编程会话的日志捞出来、洗干净、存成本地 Markdown、能搜能喂回给 AI。内核早写完了，186 个测试绿油油。问题是 UI 丑得我自己都不想截图。&lt;/p&gt;</description></item></channel></rss>
