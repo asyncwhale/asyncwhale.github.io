@@ -1,0 +1,13 @@
+{{- /* 代码块顶栏：文件名 / 语言 + 复制按钮。沿用主题 chroma 高亮 */ -}}
+{{- $lang := .Type | default "" -}}
+{{- $isReal := and (ne $lang "") (ne $lang "fallback") (ne $lang "text") (ne $lang "plaintext") -}}
+{{- $filename := .Attributes.filename | default "" -}}
+{{- $label := cond (ne $filename "") $filename (cond $isReal $lang "code") -}}
+{{- $r := transform.HighlightCodeBlock . -}}
+<div class="code-block">
+    <div class="code-bar">
+        <span class="code-bar-name">{{ $label }}</span>
+        <button class="code-copy" type="button" aria-label="复制代码">复制</button>
+    </div>
+    {{ $r.Wrapped }}
+</div>

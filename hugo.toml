@@ -20,7 +20,7 @@ hasCJKLanguage = true
   ShowShareButtons = false
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
+  ShowCodeCopyButtons = false  # 用自定义代码块顶栏的复制按钮，关掉主题自带浮动按钮
   ShowToc = true
   TocOpen = false
   ShowWordCount = true
@@ -33,6 +33,10 @@ hasCJKLanguage = true
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/asyncwhale"
+  [[params.socialIcons]]
+    name = "rss"
+    title = "RSS 订阅"
+    url = "/index.xml"
 
 [menu]
   [[menu.main]]

@@ -1,0 +1,206 @@
+{{/* asyncwhale 定制小功能 */}}
+
+<div id="reading-progress" aria-hidden="true"></div>
+
+<div id="kbd-help" role="dialog" aria-label="键盘快捷键" aria-hidden="true">
+    <div class="kbd-help-card">
+        <h3>键盘快捷键</h3>
+        <ul>
+            <li><span><kbd>g</kbd> <kbd>h</kbd></span> 回首页</li>
+            <li><span><kbd>g</kbd> <kbd>p</kbd></span> 文章列表</li>
+            <li><span><kbd>g</kbd> <kbd>t</kbd></span> 标签</li>
+            <li><span><kbd>t</kbd></span> 切换深色 / 浅色</li>
+            <li><span><kbd>?</kbd></span> 显示 / 关闭本帮助</li>
+        </ul>
+        <p class="kbd-help-hint">按 Esc 关闭</p>
+    </div>
+</div>
+
+<script>
+(function () {
+    var HOME = {{ "" | absLangURL | jsonify }};
+    var POSTS = {{ "posts/" | absLangURL | jsonify }};
+    var TAGS = {{ "tags/" | absLangURL | jsonify }};
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---- 顶部阅读进度条 ----
+    var bar = document.getElementById('reading-progress');
+    function updateProgress() {
+        var h = document.documentElement;
+        var scrolled = h.scrollTop || document.body.scrollTop;
+        var height = h.scrollHeight - h.clientHeight;
+        bar.style.width = (height > 0 ? (scrolled / height) * 100 : 0) + '%';
+    }
+    document.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+
+    // ---- 代码块顶栏复制 ----
+    document.querySelectorAll('.code-copy').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var wrap = btn.closest('.code-block');
+            var codeEl = wrap && wrap.querySelector('pre code, pre');
+            if (!codeEl) return;
+            var text = codeEl.innerText.replace(/\n$/, '');
+            var done = function () {
+                btn.textContent = '已复制';
+                setTimeout(function () { btn.textContent = '复制'; }, 1600);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done).catch(function () {});
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text; document.body.appendChild(ta); ta.select();
+                try { document.execCommand('copy'); done(); } catch (e) {}
+                document.body.removeChild(ta);
+            }
+        });
+    });
+
+    // ---- 滚动淡入 ----
+    if ('IntersectionObserver' in window && !reduceMotion) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('reveal-in'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll(
+            '.post-entry, .post-content > h2, .post-content > h3, .post-content > p, .post-content > .code-block, .post-content > blockquote, .post-content > ul, .post-content > ol'
+        ).forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
+    }
+
+    // ---- 目录滚动高亮（scrollspy）----
+    var tocLinks = document.querySelectorAll('#TableOfContents a');
+    if (tocLinks.length && 'IntersectionObserver' in window) {
+        var map = {}, heads = [];
+        tocLinks.forEach(function (a) {
+            var id = decodeURIComponent((a.getAttribute('href') || '').replace(/^#/, ''));
+            var h = id && document.getElementById(id);
+            if (h) { map[id] = a; heads.push(h); }
+        });
+        var spy = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting && map[e.target.id]) {
+                    tocLinks.forEach(function (x) { x.classList.remove('active'); });
+                    map[e.target.id].classList.add('active');
+                }
+            });
+        }, { rootMargin: '0px 0px -75% 0px', threshold: 0 });
+        heads.forEach(function (h) { spy.observe(h); });
+    }
+
+    // ---- 主题切换平滑过渡 ----
+    var tgBtn = document.getElementById('theme-toggle');
+    if (tgBtn && !reduceMotion) {
+        tgBtn.addEventListener('click', function () {
+            var r = document.documentElement;
+            r.classList.add('theme-transition');
+            setTimeout(function () { r.classList.remove('theme-transition'); }, 450);
+        });
+    }
+
+    // ---- 键盘快捷键 ----
+    var help = document.getElementById('kbd-help');
+    function toggleHelp(force) {
+        var show = typeof force === 'boolean' ? force : !help.classList.contains('show');
+        help.classList.toggle('show', show);
+        help.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+    help.addEventListener('click', function (e) { if (e.target === help) toggleHelp(false); });
+
+    var seq = '', seqTimer;
+    document.addEventListener('keydown', function (e) {
+        var t = (e.target.tagName || '').toUpperCase();
+        if (t === 'INPUT' || t === 'TEXTAREA' || e.isComposing || e.metaKey || e.ctrlKey || e.altKey) return;
+        if (e.key === 'Escape') { toggleHelp(false); return; }
+        if (seq === 'g') {
+            seq = '';
+            if (e.key === 'h') { location.href = HOME; return; }
+            if (e.key === 'p') { location.href = POSTS; return; }
+            if (e.key === 't') { location.href = TAGS; return; }
+        }
+        if (e.key === 'g') { seq = 'g'; clearTimeout(seqTimer); seqTimer = setTimeout(function () { seq = ''; }, 800); return; }
+        if (e.key === '?') { toggleHelp(); return; }
+        if (e.key === 't' || e.key === 'T') { if (tgBtn) tgBtn.click(); }
+    });
+
+    // ---- Konami 彩蛋：↑↑↓↓←→←→ B A → 放出一支「鲸鱼舰队」 ----
+    var WHALE_SVG = [
+        '<svg class="fleet-whale" viewBox="0 0 150 92" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">',
+        '<g class="spout"><circle cx="36" cy="12" r="3.2"/><circle cx="31" cy="21" r="2.6"/><circle cx="42" cy="21" r="2.4"/><circle cx="36" cy="3" r="2.2"/></g>',
+        '<path class="body" d="M12 56 C12 37 31 28 56 28 C82 28 100 39 108 51 L132 40 C130 53 123 60 110 60 C102 76 79 82 56 82 C31 82 12 73 12 56 Z"/>',
+        '<path class="belly" d="M18 61 C28 75 46 79 60 79 C80 79 97 75 106 62 C96 70 80 73 60 73 C41 73 26 71 18 61 Z"/>',
+        '<path class="fin" d="M60 62 C68 77 80 79 88 77 C82 71 75 65 71 60 Z"/>',
+        '<circle class="eye" cx="33" cy="51" r="3.6"/><circle class="glint" cx="34.2" cy="49.7" r="1.2"/>',
+        '</svg>'
+    ].join('');
+
+    function eggToast(text) {
+        var t = document.createElement('div');
+        t.className = 'egg-toast';
+        t.textContent = text;
+        document.body.appendChild(t);
+        requestAnimationFrame(function () { t.classList.add('show'); });
+        setTimeout(function () {
+            t.classList.remove('show');
+            setTimeout(function () { t.remove(); }, 400);
+        }, 2800);
+    }
+
+    function launchFleet() {
+        if (reduceMotion) { eggToast('🎼 塞尔达之歌 · agent 舰队启航'); return; }
+        var n = 6;
+        for (var i = 0; i < n; i++) {
+            (function (i) {
+                var depth = Math.random();                 // 0=远(小/慢/淡) 1=近(大/快/实)
+                var scale = 0.45 + depth * 0.85;
+                var dur = 9 - depth * 3.5;                  // 近的游得快
+                var delay = i * 0.45 + Math.random() * 0.5;
+                var top = 12 + Math.random() * 68;
+                var el = document.createElement('div');
+                el.className = 'fleet-whale-wrap';
+                el.innerHTML = WHALE_SVG;
+                el.style.top = top + 'vh';
+                el.style.opacity = (0.45 + depth * 0.55).toFixed(2);
+                el.style.setProperty('--scale', scale.toFixed(2));
+                el.style.animation = 'fleet-swim ' + dur.toFixed(1) + 's linear ' + delay.toFixed(1) + 's forwards';
+                document.body.appendChild(el);
+                setTimeout(function () { el.remove(); }, (dur + delay + 1) * 1000);
+            })(i);
+        }
+        eggToast('🎼 塞尔达之歌 · agent 舰队启航');
+    }
+
+    // 《塞尔达之歌》Zelda's Lullaby 的音符： ← ↑ → ← ↑ →
+    var lullaby = [37, 38, 39, 37, 38, 39], lpos = 0;
+    document.addEventListener('keydown', function (e) {
+        lpos = (e.keyCode === lullaby[lpos]) ? lpos + 1 : (e.keyCode === lullaby[0] ? 1 : 0);
+        if (lpos === lullaby.length) { lpos = 0; launchFleet(); }
+    });
+
+    // 页脚邀请提示
+    var ft = document.querySelector('.footer');
+    if (ft) {
+        var hint = document.createElement('div');
+        hint.className = 'egg-hint';
+        hint.innerHTML = '🎼 这片海里藏着一支舰队 —— 在键盘上奏一曲《塞尔达之歌》试试：' +
+            '<span class="egg-keys"><kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd></span>';
+        ft.appendChild(hint);
+    }
+
+    // ---- devtools 彩蛋 ----
+    var whale = [
+        "",
+        "      .-~~~-.",
+        "    .'       `.___    a s y n c w h a l e",
+        "   (    o        _)~~     一个人 · 一支 agent 舰队",
+        "    `.________.-'",
+        "      ~ ~ ~ ~ ~ ~",
+        ""
+    ].join("\n");
+    try {
+        console.log("%c" + whale, "color:#0d7c86;font-family:monospace;font-size:12px;line-height:1.45");
+        console.log("%c翻源码翻到这儿了？那我们大概聊得来。 → github.com/asyncwhale", "color:#8a8a86;font-size:13px");
+    } catch (e) {}
+})();
+</script>

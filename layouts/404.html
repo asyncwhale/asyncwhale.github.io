@@ -1,0 +1,18 @@
+{{- define "main" }}
+<div class="terminal-404">
+    <div class="t-window">
+        <span class="t-dot t-red"></span><span class="t-dot t-yellow"></span><span class="t-dot t-green"></span>
+        <span class="t-title">asyncwhale — zsh</span>
+    </div>
+    <div class="t-body">
+        <p><span class="t-prompt">asyncwhale ~ %</span> open <span class="t-arg">这个页面</span></p>
+        <p class="t-err">zsh: no such file or directory: 这个页面 &nbsp;(404)</p>
+        <pre class="t-whale">     .-~~~-.
+   .'       `.___
+  (    o        _)~    这片海里没这条鱼
+   `.________.-'
+      ~ ~ ~ ~ ~ ~</pre>
+        <p><span class="t-prompt">asyncwhale ~ %</span> <a class="t-link" href="{{ "" | absLangURL }}">cd ~</a><span class="t-cursor">▋</span></p>
+    </div>
+</div>
+{{- end }}{{/* end main */ -}}
